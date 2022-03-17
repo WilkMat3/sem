@@ -59,8 +59,10 @@ public class tests
         dep.setDept_name("Sales");
         dep.setDept_no("d001");
 
+        Employee emp2 = new Employee();
+        dep.manager = emp2;
         Employee emp = new Employee();
-        emp.setManager(null);
+        emp.setManager(emp2);
         emp.setEmp_no(1);
         emp.setDepartment(dep);
         emp.setFirst_name("Kevin");
@@ -69,4 +71,17 @@ public class tests
         emp.setSalary(55000) ;
         app.displayEmployee(emp);
     }
+    @Test
+    void dislpayEmployeeEmpty()
+    {
+        app.displayEmployee(null);
+    }
+
+    @Test
+    void dislpayEmployeeTestEmpty()
+    {
+        Employee emp = new Employee();
+        app.displayEmployee(emp);
+    }
+
 }
