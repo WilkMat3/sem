@@ -92,10 +92,18 @@ public class App {
      * @param employees The list of employees to print.
      */
     public void printSalaries(ArrayList<Employee> employees) {
+        // Check employees is not null
+        if (employees == null)
+        {
+            System.out.println("No employees");
+            return;
+        }
         // Print header
         System.out.println(String.format("%-10s %-15s %-20s %-8s ", "Emp No", "First Name", "Last Name", "Salary"));
         // Loop over all employees in the list
         for (Employee emp : employees) {
+            if (emp == null)
+                continue;
             String emp_string =
                     String.format("%-10s %-15s %-20s %-8s ",
                             emp.getEmp_no(), emp.getFirst_name(), emp.getLast_name(), emp.getSalary() );
@@ -186,9 +194,14 @@ public class App {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT dept_no, dept_name "
-                            + "FROM departments "
-                            + "WHERE dept_name = " +"'"+ dept_No +"'";
+                    "SELECT dept_no, dept_name, employees.emp_no, employees.first_name, employees.last_name "
+                            + "FROM departments, dept_manager, employees "
+                            + "WHERE dept_name = " +"'"+ dept_No +"'"
+                            + "AND departments.dept_no = dept_manager.dept_no "
+                            + "AND employees.emp_no = dep_manager.empp_no "
+                            + "AND salaries.emp_no = dep_manager.empp_no "
+                            + "AND salaries.to_date = '9999-01-01' "
+                            + "ORDER BY employees.emp_no ASC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new Department if valid.
@@ -197,7 +210,7 @@ public class App {
                 Department dep = new Department();
                 dep.setDept_no(rset.getString("dept_no"));
                 dep.setDept_name(rset.getString("dept_name"));
-
+                dep.setDept_name(rset.getString("dept_name"));
                 return dep;
             } else
                 return null;
