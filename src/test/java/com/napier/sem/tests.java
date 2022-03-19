@@ -18,7 +18,6 @@ public class tests
     static void init()
     {
         app = new App();
-        app.connect("localhost:33060", 30000);
 
     }
 
