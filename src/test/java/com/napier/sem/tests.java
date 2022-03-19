@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AppTest
+public class tests
 {
     static App app;
 
@@ -18,7 +18,10 @@ public class AppTest
     static void init()
     {
         app = new App();
+        app.connect("localhost:33060", 30000);
+
     }
+
 
     @Test
     void printSalariesTestNull()
