@@ -11,7 +11,7 @@ public class App {
     private Connection con = null;
 
     public void displayEmployee(Employee emp) {
-
+// displays employee
   if (emp != null) {
       // checks for valid input
       if(emp.getLast_name() != null && emp.getFirst_name() != null){
@@ -34,9 +34,9 @@ public class App {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT emp_no, first_name, last_name,dept_manager.emp_no "
+                    "SELECT employees.emp_no, employees.first_name, employees.last_name,dept_manager.emp_no "
                             + "FROM employees, dept_manager, dept_emp "
-                            + "WHERE emp_no = " + ID + " "
+                            + "WHERE employees.emp_no = " + ID + " "
                             + "AND employees.emp_no = dept_emp.emp_no "
                             + "AND dept_manager.dept_no = dept_emp.dept_no ";
             // Execute SQL statement

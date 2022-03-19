@@ -7,6 +7,7 @@ import org.junit.jupiter.api.TestInstance;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AppIntegrationTest
 {
@@ -30,6 +31,7 @@ public class AppIntegrationTest
     }
     @Test
     void testGetAllSalaries(){
-        app.getAllSalaries();
+        ArrayList<Employee> all = app.getAllSalaries();
+        assertEquals(all.size(),240124);
     }
 }
