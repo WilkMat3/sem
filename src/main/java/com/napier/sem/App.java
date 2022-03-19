@@ -11,15 +11,19 @@ public class App {
     private Connection con = null;
 
     public void displayEmployee(Employee emp) {
-        if (emp != null) {
-            System.out.println(
-                    emp.getEmp_no() + " "
-                            + emp.getFirst_name() + " "
-                            + emp.getLast_name() + "\n"
-                            + emp.getTitle() + "\n"
-                            + "Salary:" + emp.getSalary() + "\n"
-                            + emp.department + "\n"
-                            + "Manager: " + emp.getManager().getLast_name() + "\n");
+
+  if (emp != null) {
+      if(emp.getLast_name() != null && emp.getFirst_name() != null){
+          System.out.println(
+                  emp.getEmp_no() + " "
+                          + emp.getFirst_name() + " "
+                          + emp.getLast_name() + "\n"
+                          + emp.getTitle() + "\n"
+                          + "Salary:" + emp.getSalary() + "\n"
+                          + emp.department + "\n"
+                          + "Manager: " + emp.getManager().getLast_name() + "\n");
+      }
+
         }
     }
 
