@@ -222,20 +222,20 @@ public class App {
     }
 
 
-    public Department getDepartment(String dept_No) {
+    public Department getDepartment(String dept_name) {
         try {
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT dept_no, dept_name, employees.emp_no, employees.first_name, employees.last_name "
-                            + "FROM departments, dept_manager, employees "
-                            + "WHERE dept_name = " +"'"+ dept_No +"'"
+                    "SELECT departments.dept_no, departments.dept_name, employees.emp_no, employees.first_name, employees.last_name "
+                            + "FROM departments, dept_manager, employees,salaries "
+                            + "WHERE departments.dept_name = '"+ dept_name +"' "
                             + "AND departments.dept_no = dept_manager.dept_no "
-                            + "AND employees.emp_no = dep_manager.empp_no "
-                            + "AND salaries.emp_no = dep_manager.empp_no "
+                            + "AND employees.emp_no = dept_manager.emp_no "
+                            + "AND salaries.emp_no = dept_manager.emp_no "
                             + "AND salaries.to_date = '9999-01-01' "
-                            + "ORDER BY employees.emp_no ASC";
+                            + "ORDER BY employees.emp_no ASC ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new Department if valid.
@@ -244,13 +244,16 @@ public class App {
                 Department dep = new Department();
                 dep.setDept_no(rset.getString("dept_no"));
                 dep.setDept_name(rset.getString("dept_name"));
-
+                dep.manager = new Employee();
+                dep.manager.setEmp_no((rset.getInt("emp_no")));
+                dep.manager.setFirst_name(rset.getString("first_name"));
+                dep.manager.setLast_name((rset.getString("last_name")));
                 return dep;
             } else
                 return null;
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get employee details");
+            System.out.println("Failed to get department details");
             return null;
         }
     }
@@ -269,7 +272,7 @@ public class App {
                             + "AND dept_emp.dept_no = departments.dept_no "
                             + "AND salaries.to_date = '9999-01-01' "
                             + "AND departments.dept_name = " +"'" + dept.getDept_name() + "' "
-                            + "ORDER BY employees.emp_no ASC";
+                            + "ORDER BY employees.emp_no ASC ";
 
 
 
