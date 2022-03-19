@@ -13,6 +13,7 @@ public class App {
     public void displayEmployee(Employee emp) {
 
   if (emp != null) {
+      // checks for valid input
       if(emp.getLast_name() != null && emp.getFirst_name() != null){
           System.out.println(
                   emp.getEmp_no() + " "
