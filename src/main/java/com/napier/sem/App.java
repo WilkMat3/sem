@@ -230,6 +230,7 @@ public class App {
 
 
     public Department getDepartment(String dept_name) {
+
         try {
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -301,6 +302,36 @@ public class App {
             System.out.println("Failed to get salary details");
             return null;
         }
+    }
+    public void addEmployee(Employee emp)
+    {
+    ArrayList<Employee> allE = getAllSalaries();
+    boolean isNotDuplicated = false;
+    for(Employee e : allE){
+    if(e.getEmp_no() == emp.getEmp_no()){
+        isNotDuplicated = true;
+    }
+
+    }
+       if(isNotDuplicated != true && emp !=null){
+
+
+
+        try
+        {
+            Statement stmt = con.createStatement();
+            String strUpdate =
+                    "INSERT INTO employees (emp_no, first_name, last_name, birth_date, gender, hire_date) " +
+                            "VALUES (" + emp.getEmp_no() + ", '" + emp.getFirst_name() + "', '" + emp.getLast_name() + "', " +
+                            "'9999-01-01', 'M', '9999-01-01')";
+            stmt.execute(strUpdate);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to add employee");
+        }
+       }
     }
     public static void main(String[] args) {
         // Create new Application and connect to database
