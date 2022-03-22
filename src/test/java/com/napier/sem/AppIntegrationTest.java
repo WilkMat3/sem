@@ -42,13 +42,10 @@ public class AppIntegrationTest
         emp.setEmp_no(500000);
         emp.setFirst_name("Kevin");
         emp.setLast_name("Chalmers");
-        app.addEmployee(emp);
-        Employee a = app.getEmployee(500000);
-        if(a != null){
-            assertEquals(a.getEmp_no(), 500000);
-            assertEquals(a.getFirst_name(), "Kevin");
-            assertEquals(a.getLast_name(), "Chalmers");
-        }
-
+       app.addEmployee(emp);
+       emp = app.getEmployee(500000);
+      assertEquals(emp.getEmp_no(), 500000);
+        assertEquals(emp.getFirst_name(), "Kevin");
+        assertEquals(emp.getLast_name(), "Chalmers");
     }
 }

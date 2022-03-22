@@ -34,11 +34,9 @@ public class App {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT employees.emp_no, employees.first_name, employees.last_name,dept_manager.emp_no "
-                            + "FROM employees, dept_manager, dept_emp "
-                            + "WHERE employees.emp_no = " + ID + " "
-                            + "AND employees.emp_no = dept_emp.emp_no "
-                            + "AND dept_manager.dept_no = dept_emp.dept_no ";
+                    "SELECT employees.emp_no, employees.first_name, employees.last_name "
+                            + "FROM employees "
+                            + "WHERE employees.emp_no = " + ID + " ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -305,18 +303,6 @@ public class App {
     }
     public void addEmployee(Employee emp)
     {
-    ArrayList<Employee> allE = getAllSalaries();
-    boolean isNotDuplicated = false;
-    for(Employee e : allE){
-    if(e.getEmp_no() == emp.getEmp_no()){
-        isNotDuplicated = true;
-    }
-
-    }
-       if(isNotDuplicated != true && emp !=null){
-
-
-
         try
         {
             Statement stmt = con.createStatement();
@@ -331,7 +317,25 @@ public class App {
             System.out.println(e.getMessage());
             System.out.println("Failed to add employee");
         }
-       }
+    }
+        public void removeEmployee(int emp)
+        {
+
+
+            try
+            {
+                Statement stmt = con.createStatement();
+                String strUpdate =
+                        "DELETE FROM employees  "+
+                                 "WHERE employees.emp_no = '" +emp +"'";
+                stmt.execute(strUpdate);
+            }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to add employee");
+        }
+
     }
     public static void main(String[] args) {
         // Create new Application and connect to database
@@ -344,11 +348,12 @@ public class App {
         }
 
 
+
         // Extract employee salary information
-        ArrayList<Employee> employees = a.getSalariesByDepartment(a.getDepartment("Sales"));
-        a.printSalaries(employees);
+      //  ArrayList<Employee> employees = a.getSalariesByDepartment(a.getDepartment("Sales"));
+        //a.printSalaries(employees);
         // Test the size of the returned data - should be 240124
-        System.out.println(employees.size());
+       /// System.out.println(employees.size());
 
         // Disconnect from database bbb
         a.disconnect();
